@@ -39,7 +39,7 @@ const updateUser = async (req, res) => {
         if (user) {
             return res.status(200).json(user)
         }
-        throw new Error("Product not found")
+        throw new Error("User not found")
     } catch (error) {
         return res.status(500).send(error.message);
     }
