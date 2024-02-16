@@ -8,8 +8,8 @@ const cors = require('cors');
 //Controller functions
 const { getUsers, getUserById, createUser, updateUser, deleteUser } = require('./controllers/userController');
 const { getPosts, getPostById, createPost, updatePost, deletePost } = require('./controllers/postController');
-const { getLikes, getLikeById, createLike, updateLike, deleteLike } = require('./controllers/likeController');
-const { getComments, getCommentById, createComment, updateComment, deleteComment } = require('./controllers/commentController');
+const { getLikes, getLikeById, createLike, updateLike, deleteLike, getLikesFromPost } = require('./controllers/likeController');
+const { getComments, getCommentById, createComment, updateComment, deleteComment, getCommentsFromPost } = require('./controllers/commentController');
 
 //Set up for Express
 const PORT = process.env.PORT || 3001;
@@ -45,12 +45,14 @@ app.get('/likes/:id', getLikeById)
 app.post('/likes/create', createLike)
 app.put('/likes/:id/update', updateLike)
 app.delete('/likes/:id/delete', deleteLike)
+app.get('/posts/:id/likes', getLikesFromPost)
 
 app.get('/comments', getComments)
 app.get('/comments/:id', getCommentById)
 app.post('/comments/create', createComment)
 app.put('/comments/:id/update', updateComment)
 app.delete('/comments/:id/delete', deleteComment)
+app.get('/posts/:id/comments', getCommentsFromPost)
 
 // Handle 404 errors
 app.get('/*', async (req,res) => {

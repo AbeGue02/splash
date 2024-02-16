@@ -1,4 +1,4 @@
-const { Comment } = require('../models')
+const { Comment, Post } = require('../models')
 
 const getComments = async (req, res) => {
     try {
@@ -17,6 +17,17 @@ const getCommentById = async (req,res) => {
         }
     } catch (error) {
         return res.status(500).send('Comment with the specified ID does not exists');
+    }
+}
+
+const getCommentsFromPost = async (req,res) => {
+    try {
+        const comments = await Comment.find({post: req.params.id})
+        if (comments) {
+            res.json(comments)
+        }
+    } catch (error) {
+        return res.status(500).send('Comments for this post do not exist');
     }
 }
 
@@ -64,4 +75,5 @@ module.exports = {
     createComment,
     updateComment,
     deleteComment,
+    getCommentsFromPost
 }

@@ -20,6 +20,18 @@ const getLikeById = async (req,res) => {
     }
 }
 
+const getLikesFromPost = async (req,res) => {
+    try {
+        const likes = await Like.find({post: req.params.id})
+        if (likes) {
+            res.json(likes)
+        }
+    } catch (error) {
+        return res.status(500).send('Likes for this post do not exist');
+    }
+}
+
+
 const createLike = async (req,res) => {
     try {
         const like = await new Like(req.body)
@@ -64,4 +76,5 @@ module.exports = {
     createLike,
     updateLike,
     deleteLike,
+    getLikesFromPost
 }
