@@ -1,10 +1,32 @@
 # Splash
 
-Splash is an art-based social media platform for artists and people seeking some relaxing time for their mental wellbeing. It is the ideal place for those seeking inspiration and/or relaxation
+Splash is an social media platform for artists and people seeking some relaxing time for their mental wellbeing. It is the ideal place for those seeking inspiration and/or relaxation. Come and chill with us.
 
 ## User Stories
 
+- As a user, I should be able to scroll through my feed.
+- As a user, I should be able to like and comment on posts.
+- As a user, I should be able delete my own, and only my own, posts.
+- As a user, I should be able to go to users' pages and scroll through their posts
+- As a user, I should be able to edit my profile info
+
 ## Screens
+
+### Feed
+
+![A picture of the feed screen](./imgs/feed-screen.png)
+
+### User Screen
+
+![A picture of the feed screen](./imgs/user-screens.png)
+
+### Edit User Info Screen
+
+![A picture of the feed screen](./imgs/edit-user-screen.png)
+
+### Log In Screen (Stretch)
+
+![A picture of the Log in Screen](./imgs/login-screens.png)
 
 ## ERD
 
