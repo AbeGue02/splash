@@ -2,7 +2,7 @@ const { Post } = require('../models')
 
 const getPosts = async (req, res) => {
     try {
-        const posts = await Post.find()
+        const posts = await Post.find().populate(['user'])
         res.json(posts)
     } catch (error) {
         return res.status(500).send("An error has occured")
@@ -11,7 +11,7 @@ const getPosts = async (req, res) => {
 
 const getPostById = async (req,res) => {
     try {
-        const post = await Post.findById(req.params.id)
+        const post = await Post.findById(req.params.id).populate(['user'])
         if (post) {
             res.json(post)
         }
