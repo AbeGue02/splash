@@ -22,6 +22,11 @@ h1 {
     justify-content: stretch;
 }
 
+h4 {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+
 button {
     background-color: #939C5C;
     margin: 10px 0;
@@ -125,4 +130,52 @@ textarea {
     border-top: 1px solid #d9d9d9;
     justify-content: space-between;
     align-items: center;
+}
+
+.commentContainer {
+    border-top: 1px solid #d9d9d9;
+}
+
+.commentHeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.commentProfilePicContainer {
+    background-color: yellow;
+    border-radius: 50%;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    max-height: 30px;
+    max-width: 30px;
+    margin-right: 10px;
+}
+
+.commentProfilePic {
+    height: 100%;
+    width: 100%; 
+    background-color: yellow;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.commentFieldContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 1px solid #d9d9d9;
+}
+
+.commentTextField {
+    display: flex;
+    flex: 1;
+    margin: 10px;
+}
+
+.commentContent {
+    padding: 0 10px;
+    margin: 5px 10px;
 }

@@ -25,14 +25,14 @@ export default function Post(props) {
         fetch(`http://localhost:3001/posts/${props.props._id}/likes`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                //console.log(data)
                 setLikes(data)
             })
     }
 
     useEffect(() => {
-        console.log('LIKES:::', likes)
-    }, [likes])
+        console.log('COMMENTS:::', comments)
+    }, [comments])
 
     return(
         <div className={style.card}>
@@ -51,12 +51,25 @@ export default function Post(props) {
                 {
                     comments.map((comment) => {
                         return (
-                            <div>
-                                <p>{comment.content}</p>
+                            <div className={style.commentContainer}>
+                                <div className={style.commentHeaderContainer}>
+                                    <div className={style.commentProfilePicContainer}>
+                                        <img src={comment.user.profile_picture} className={style.commentProfilePic}/>
+                                    </div>
+                                    <h4>{comment.user.username}</h4>
+                                </div>
+                                <p className={style.commentContent}>{comment.content}</p>
                             </div>
                         )
                     })
                 }
+            </div>
+            <div className={style.commentFieldContainer}>
+                <div className={style.commentProfilePicContainer}>
+                    <img src={'#'} className={style.commentProfilePic}/>
+                </div>
+                <textarea className={style.commentTextField} placeholder='Leave a comment...' />
+                <button>Comment</button>
             </div>
         </div>
     )
