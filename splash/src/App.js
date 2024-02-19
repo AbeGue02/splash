@@ -5,7 +5,7 @@ import Post from './components/Post';
 import PostCreator from './components/PostCreator';
 import { createContext, useEffect, useState } from 'react';
 
-const UserContext = createContext()
+export const UserContext = createContext()
 
 function App() {
 

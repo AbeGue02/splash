@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { UserContext } from '../App.js'
 import style from '../App.module.css'
 
 export default function Post(props) {
+
+    const user = useContext(UserContext)
 
     const [comments, setComments] = useState([])
     const [likes, setLikes] = useState([])
@@ -10,6 +13,7 @@ export default function Post(props) {
     useEffect(() => {
         getComments()
         getLikes()
+        console.log('USER', user)
     }, [])
 
     const getComments = () => {
@@ -29,10 +33,6 @@ export default function Post(props) {
                 setLikes(data)
             })
     }
-
-    useEffect(() => {
-        console.log('COMMENTS:::', comments)
-    }, [comments])
 
     return(
         <div className={style.card}>
@@ -66,7 +66,7 @@ export default function Post(props) {
             </div>
             <div className={style.commentFieldContainer}>
                 <div className={style.commentProfilePicContainer}>
-                    <img src={'#'} className={style.commentProfilePic}/>
+                    <img src={user.profile_picture} className={style.commentProfilePic}/>
                 </div>
                 <textarea className={style.commentTextField} placeholder='Leave a comment...' />
                 <button>Comment</button>
