@@ -22,7 +22,7 @@ const getCommentById = async (req,res) => {
 
 const getCommentsFromPost = async (req,res) => {
     try {
-        const comments = await Comment.find({post: req.params.id})
+        const comments = await Comment.find({post: req.params.id}).populate(['user'])
         if (comments) {
             res.json(comments)
         }
