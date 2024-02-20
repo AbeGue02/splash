@@ -137,6 +137,11 @@ textarea {
     align-items: center;
 }
 
+.unlikeButton {
+    background-color: #d9d9d9;
+    color: black;
+}
+
 .commentContainer {
     border-top: 1px solid #d9d9d9;
 }

@@ -9,20 +9,26 @@ export default function Post(props) {
 
     const [comments, setComments] = useState([])
     const [likes, setLikes] = useState([])
+    const [likedByUser, setLikedByUser] = useState(false)
 
     const [userCommentText, setUserCommentText] = useState('')
-
 
     useEffect(() => {
         getComments()
         getLikes()
-        //console.log('USER', user)
     }, [])
+
+    useEffect(() => {
+        if (likes.some((like) => like.user === user._id)) {
+            setLikedByUser(true)
+        } else {
+            setLikedByUser(false)
+        }
+    }, [likes])
 
     const getComments = async () => {
         try {
             const response = await axios.get(`http://localhost:3001/posts/${props.props._id}/comments`)
-            console.log(response.data)
             setComments(response.data)
         } catch (e) {
             console.error(e)
@@ -32,7 +38,7 @@ export default function Post(props) {
     const getLikes = async () => {
         try {
             const response = await axios.get(`http://localhost:3001/posts/${props.props._id}/likes`)
-            console.log(response.data)
+            console.log("LIKES: ",response.data)
             setLikes(response.data)
         } catch (e) {
             console.error(e)
@@ -56,6 +62,26 @@ export default function Post(props) {
         }
     }
 
+    const handleLikeStyle = () => {
+        return likedByUser ? style.unlikeButton : style.likeButton
+    }
+
+    const handleLike = async () => {
+        if (likedByUser) {
+            await axios.delete(`http://localhost:3001/likes/${likes.find((like) => like.user === user._id)._id}/delete`)
+            await getLikes()
+        } else {
+
+            const like = {
+                user: user._id,
+                post: props.props._id
+            }
+
+            await axios.post(`http://localhost:3001/likes/create`, like)
+            await getLikes()
+        }
+    }
+
     return(
         <div className={style.card}>
             <div className={style.postHeader}>
@@ -66,8 +92,12 @@ export default function Post(props) {
             </div>
             <p>{props.props.content}</p>
             <div className={style.postOptions}>
-                <button>Like</button>
-                <span>{likes.length}</span>
+                <button 
+                    className={handleLikeStyle()}
+                    onClick={handleLike}>
+                        {likedByUser ? "Unlike" : "Like"}
+                </button>
+                <span>{likes.length} Likes</span>
             </div>
             <div>
                 {
@@ -76,11 +106,11 @@ export default function Post(props) {
                             <div className={style.commentContainer}>
                                 <div className={style.commentHeaderContainer}>
                                     <div className={style.commentProfilePicContainer}>
-                                        <img src={comment.user.profile_picture} className={style.commentProfilePic}/>
+                                        <img src={comment.user.profile_picture} alt='user profile' className={style.commentProfilePic}/>
                                     </div>
                                     <h4>{comment.user.username}</h4>
                                     {
-                                        comment.user._id == user._id 
+                                        comment.user._id === user._id 
                                         && <button 
                                             className={style.deleteComment} 
                                             onClick={async () => {
@@ -103,7 +133,7 @@ export default function Post(props) {
             </div>
             <div className={style.commentFieldContainer}>
                 <div className={style.commentProfilePicContainer}>
-                    <img src={user.profile_picture} className={style.commentProfilePic}/>
+                    <img src={user.profile_picture} alt="user profile" className={style.commentProfilePic}/>
                 </div>
                 <textarea 
                     className={style.commentTextField} 
