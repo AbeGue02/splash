@@ -3,7 +3,7 @@ import { UserContext } from '../App.js'
 import style from '../App.module.css'
 import axios from 'axios'
 
-export default function Post(props) {
+export default function Post({props, getPosts}) {
 
     const user = useContext(UserContext)
 
@@ -14,6 +14,7 @@ export default function Post(props) {
     const [userCommentText, setUserCommentText] = useState('')
 
     useEffect(() => {
+        console.log(props)
         getComments()
         getLikes()
     }, [])
@@ -26,9 +27,19 @@ export default function Post(props) {
         }
     }, [likes])
 
+    const deletePost = async () => {
+        try {
+            await axios.delete(`http://localhost:3001/posts/${props._id}/delete`)
+            console.log('Post Deleted')
+            await getPosts()
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     const getComments = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/posts/${props.props._id}/comments`)
+            const response = await axios.get(`http://localhost:3001/posts/${props._id}/comments`)
             setComments(response.data)
         } catch (e) {
             console.error(e)
@@ -37,7 +48,7 @@ export default function Post(props) {
 
     const getLikes = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/posts/${props.props._id}/likes`)
+            const response = await axios.get(`http://localhost:3001/posts/${props._id}/likes`)
             console.log("LIKES: ",response.data)
             setLikes(response.data)
         } catch (e) {
@@ -49,7 +60,7 @@ export default function Post(props) {
         try {
             const comment = {
                 user: user._id,
-                post: props.props._id,
+                post: props._id,
                 content: userCommentText
             }
             
@@ -74,7 +85,7 @@ export default function Post(props) {
 
             const like = {
                 user: user._id,
-                post: props.props._id
+                post: props._id
             }
 
             await axios.post(`http://localhost:3001/likes/create`, like)
@@ -86,15 +97,15 @@ export default function Post(props) {
         <div className={style.card}>
             <div className={style.postHeader}>
                 <div className={style.postProfilePicContainer}>
-                    <img src={props.props.user.profile_picture} alt="Post Profile" className={style.postProfilePic}/>
+                    <img src={props.user.profile_picture} alt="Post Profile" className={style.postProfilePic}/>
                 </div>
-                <h3>{props.props.user.username}</h3>
+                <h3>{props.user.username}</h3>
                 {
-                    props.props.user._id === user._id 
-                        && <button>Delete</button>
+                    props.user._id === user._id 
+                        && <button onClick={deletePost}>Delete</button>
                 }
             </div>
-            <p>{props.props.content}</p>
+            <p>{props.content}</p>
             <div className={style.postOptions}>
                 <button 
                     className={handleLikeStyle()}

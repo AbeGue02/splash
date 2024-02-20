@@ -44,7 +44,7 @@ function App() {
         <PostCreator />
         {
           posts.map( (post) => (
-            <Post props={post}/>
+            <Post props={post} getPosts={getPosts}/>
           ))
         }
       </div>
