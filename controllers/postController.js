@@ -2,7 +2,7 @@ const { Post } = require('../models')
 
 const getPosts = async (req, res) => {
     try {
-        const posts = await Post.find().populate(['user'])
+        const posts = await Post.find().populate(['user']).sort({createdAt: -1, id: -1, user: -1, content: -1, image: -1})
         res.json(posts)
     } catch (error) {
         return res.status(500).send("An error has occured")

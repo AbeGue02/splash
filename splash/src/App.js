@@ -41,7 +41,7 @@ function App() {
     <UserContext.Provider value={user}>
       <div className={styles.container}>
         <Header />
-        <PostCreator />
+        <PostCreator getPosts={getPosts} />
         {
           posts.map( (post) => (
             <Post props={post} getPosts={getPosts}/>

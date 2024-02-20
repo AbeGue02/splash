@@ -95,6 +95,12 @@ export default function Post({props, getPosts}) {
 
     return(
         <div className={style.card}>
+            {
+                props.image !== "" &&
+                <div className={style.postPictureContainer}>
+                    <img src={props.image} />
+                </div>
+            }
             <div className={style.postHeader}>
                 <div className={style.postProfilePicContainer}>
                     <img src={props.user.profile_picture} alt="Post Profile" className={style.postProfilePic}/>
