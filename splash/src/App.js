@@ -16,7 +16,7 @@ function App() {
     fetch('http://localhost:3001/users/65cfd6197abd65f76176d1bc')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        //console.log(data)
         setUser(data)
       })
       .catch(e => console.error(e))
@@ -26,7 +26,7 @@ function App() {
     fetch('http://localhost:3001/posts')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        //console.log(data)
         setPosts(data)
       })
       .catch(e => console.error(e))

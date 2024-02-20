@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from '../App.js'
 import style from '../App.module.css'
+import axios from 'axios'
 
 export default function Post(props) {
 
@@ -9,29 +10,50 @@ export default function Post(props) {
     const [comments, setComments] = useState([])
     const [likes, setLikes] = useState([])
 
+    const [userCommentText, setUserCommentText] = useState('')
+
 
     useEffect(() => {
         getComments()
         getLikes()
-        console.log('USER', user)
+        //console.log('USER', user)
     }, [])
 
-    const getComments = () => {
-        fetch(`http://localhost:3001/posts/${props.props._id}/comments`)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data)
-                setComments(data)
-            })
+    const getComments = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3001/posts/${props.props._id}/comments`)
+            console.log(response.data)
+            setComments(response.data)
+        } catch (e) {
+            console.error(e)
+        }     
     }
 
-    const getLikes = () => {
-        fetch(`http://localhost:3001/posts/${props.props._id}/likes`)
-            .then((response) => response.json())
-            .then((data) => {
-                //console.log(data)
-                setLikes(data)
-            })
+    const getLikes = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3001/posts/${props.props._id}/likes`)
+            console.log(response.data)
+            setLikes(response.data)
+        } catch (e) {
+            console.error(e)
+        } 
+    }
+
+    const createComment = async () => {
+        try {
+            const comment = {
+                user: user._id,
+                post: props.props._id,
+                content: userCommentText
+            }
+            
+            await axios.post('http://localhost:3001/comments/create', comment)
+            console.log("Comment Created: ", comment)
+            setUserCommentText("")
+            await getComments()
+        } catch (e) {
+            console.error(e)
+        }
     }
 
     return(
@@ -57,6 +79,21 @@ export default function Post(props) {
                                         <img src={comment.user.profile_picture} className={style.commentProfilePic}/>
                                     </div>
                                     <h4>{comment.user.username}</h4>
+                                    {
+                                        comment.user._id == user._id 
+                                        && <button 
+                                            className={style.deleteComment} 
+                                            onClick={async () => {
+                                                try {
+                                                    await axios.delete(`http://localhost:3001/comments/${comment._id}/delete`)
+                                                    console.log('Comment Deleted')
+                                                    await getComments()
+                                                } catch (e) {
+                                                    console.error(e)
+                                                }}}>
+                                                Delete
+                                            </button>
+                                    }
                                 </div>
                                 <p className={style.commentContent}>{comment.content}</p>
                             </div>
@@ -68,8 +105,12 @@ export default function Post(props) {
                 <div className={style.commentProfilePicContainer}>
                     <img src={user.profile_picture} className={style.commentProfilePic}/>
                 </div>
-                <textarea className={style.commentTextField} placeholder='Leave a comment...' />
-                <button>Comment</button>
+                <textarea 
+                    className={style.commentTextField} 
+                    placeholder='Leave a comment...' 
+                    value={userCommentText} 
+                    onChange={(e) => {setUserCommentText(e.target.value)}} />
+                <button onClick={createComment}>Comment</button>
             </div>
         </div>
     )

@@ -37,6 +37,11 @@ button {
     font-weight: bold;
 }
 
+button:hover {
+    background-color: #6e7544;
+    cursor: pointer;
+}
+
 textarea {
     margin: 10px 0;
     padding: 10px;
@@ -179,4 +184,8 @@ textarea {
 .commentContent {
     padding: 0 10px;
     margin: 5px 10px;
+}
+
+.deleteComment {
+    margin-left: auto;
 }
