@@ -89,6 +89,10 @@ export default function Post(props) {
                     <img src={props.props.user.profile_picture} alt="Post Profile" className={style.postProfilePic}/>
                 </div>
                 <h3>{props.props.user.username}</h3>
+                {
+                    props.props.user._id === user._id 
+                        && <button>Delete</button>
+                }
             </div>
             <p>{props.props.content}</p>
             <div className={style.postOptions}>
