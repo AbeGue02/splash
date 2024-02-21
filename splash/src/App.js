@@ -3,6 +3,7 @@ import Header from './components/Header';
 import { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from './routes/Feed';
+import Profile from './routes/Profile';
 
 export const UserContext = createContext()
 
@@ -23,6 +24,10 @@ function App() {
     getUser() 
   }, [])
 
+  useEffect(() => {
+    
+  }, [user])
+
   return (
     <UserContext.Provider value={user}>
       <BrowserRouter>
@@ -30,6 +35,7 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<Feed/>}/>
+            <Route path='/profile' element={<Profile/>}/>
           </Routes>
         </div>
       </BrowserRouter>

@@ -1,5 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import PostCreator from '../components/PostCreator';
 import Post from '../components/Post';
 
@@ -35,7 +34,7 @@ const Feed = () => {
             <PostCreator getPosts={getPosts} />
             {
                 posts.map( (post) => (
-                <Post props={post} getPosts={getPosts} key={post._id}/>
+                    <Post props={post} getPosts={getPosts} key={post._id}/>
                 ))
             }
         </>
