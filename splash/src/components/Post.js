@@ -14,7 +14,6 @@ export default function Post({props, getPosts}) {
     const [userCommentText, setUserCommentText] = useState('')
 
     useEffect(() => {
-        console.log(props)
         getComments()
         getLikes()
     }, [])
@@ -49,7 +48,6 @@ export default function Post({props, getPosts}) {
     const getLikes = async () => {
         try {
             const response = await axios.get(`http://localhost:3001/posts/${props._id}/likes`)
-            console.log("LIKES: ",response.data)
             setLikes(response.data)
         } catch (e) {
             console.error(e)
@@ -124,7 +122,7 @@ export default function Post({props, getPosts}) {
                 {
                     comments.map((comment) => {
                         return (
-                            <div className={style.commentContainer}>
+                            <div className={style.commentContainer} key={comment._id}>
                                 <div className={style.commentHeaderContainer}>
                                     <div className={style.commentProfilePicContainer}>
                                         <img src={comment.user.profile_picture} alt='user profile' className={style.commentProfilePic}/>
