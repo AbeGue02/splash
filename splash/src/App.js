@@ -1,7 +1,5 @@
 import styles from './App.module.css';
 import Header from './components/Header';
-import Post from './components/Post';
-import PostCreator from './components/PostCreator';
 import { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from './routes/Feed';

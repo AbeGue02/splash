@@ -1,4 +1,3 @@
-import styles from '../App.module.css';
 import { createContext, useEffect, useState } from 'react';
 
 import PostCreator from '../components/PostCreator';
