@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { UserContext } from '../App.js'
 import style from '../App.module.css'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export default function Post({props, getPosts}) {
 
@@ -103,7 +104,7 @@ export default function Post({props, getPosts}) {
                 <div className={style.postProfilePicContainer}>
                     <img src={props.user.profile_picture} alt="Post Profile" className={style.postProfilePic}/>
                 </div>
-                <h3>{props.user.username}</h3>
+                <Link to={`/profile/${props.user._id}`}><h3>{props.user.username}</h3></Link>
                 {
                     props.user._id === user._id 
                         && <button onClick={deletePost}>Delete</button>

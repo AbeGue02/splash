@@ -1,31 +1,21 @@
 import { useEffect, useState } from 'react';
 import PostCreator from '../components/PostCreator';
 import Post from '../components/Post';
+import axios from 'axios'
 
 const Feed = () => {
-    const [user, setUser] = useState('')
     const [posts, setPosts] = useState([])
 
-    const getUser = () => {
-        fetch('http://localhost:3001/users/65cfd6197abd65f76176d1bc')
-        .then((response) => response.json())
-        .then((data) => {
-            setUser(data)
-        })
-        .catch(e => console.error(e))
+    const getPosts = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/posts')
+            setPosts(response.data)
+        } catch (e) {
+            console.error("Error in Feed:getPosts(): ", e)
+        }
     }
 
-    const getPosts = () => {
-        fetch('http://localhost:3001/posts')
-        .then((response) => response.json())
-        .then((data) => {
-            setPosts(data)
-        })
-        .catch(e => console.error(e))
-    }
-
-    useEffect(() => {
-        getUser() 
+    useEffect(() => { 
         getPosts()
     }, [])
 

@@ -1,6 +1,6 @@
 import style from '../App.module.css'
 import { UserContext } from '../App.js'
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { Link } from 'react-router-dom'
 
 export default function Header() {
@@ -13,7 +13,7 @@ export default function Header() {
                 <Link to='/'><h1>Splash</h1></Link>
             </div>
             <div className={style.headerProfilePictureContainer}>
-                <Link to='/profile'><img src={user.profile_picture} alt='Profile' className={style.headerProfilePicture}/></Link>
+                <Link to={`/profile/${user._id}`}><img src={user.profile_picture} alt='Profile' className={style.headerProfilePicture}/></Link>
             </div>
         </div>
     )
