@@ -20,6 +20,17 @@ const getPostById = async (req,res) => {
     }
 }
 
+const getPostByUser = async (req,res) => {
+    try {
+        const posts = await Post.find({user: req.params.id}).populate('user').sort({createdAt: -1, id: -1, user: -1, content: -1, image: -1})
+        if (posts) {
+            res.json(posts)
+        }
+    } catch (error) {
+        return res.status(500).send('Posts do not exists');
+    }
+}
+
 const createPost = async (req,res) => {
     try {
         const post = await new Post(req.body)
@@ -61,6 +72,7 @@ const deletePost = async (req, res) => {
 module.exports = {
     getPosts,
     getPostById,
+    getPostByUser,
     createPost,
     updatePost,
     deletePost,

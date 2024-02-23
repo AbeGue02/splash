@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 //Controller functions
-const { getUsers, getUserById, createUser, updateUser, deleteUser } = require('./controllers/userController');
-const { getPosts, getPostById, createPost, updatePost, deletePost } = require('./controllers/postController');
+const { getUsers, getUserById, createUser, updateUser, deleteUser, patchUser } = require('./controllers/userController');
+const { getPosts, getPostById, createPost, updatePost, deletePost, getPostByUser } = require('./controllers/postController');
 const { getLikes, getLikeById, createLike, updateLike, deleteLike, getLikesFromPost } = require('./controllers/likeController');
 const { getComments, getCommentById, createComment, updateComment, deleteComment, getCommentsFromPost } = require('./controllers/commentController');
 
@@ -30,8 +30,10 @@ app.get('/', async (req,res) => {
 //Endpoints
 app.get('/users', getUsers)
 app.get('/users/:id', getUserById)
+app.get('/users/:id/posts', getPostByUser)
 app.post('/users/create', createUser)
 app.put('/users/:id/update', updateUser)
+app.patch('/users/:id/patch', patchUser)
 app.delete('/users/:id/delete', deleteUser)
 
 app.get('/posts', getPosts)

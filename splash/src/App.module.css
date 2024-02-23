@@ -209,3 +209,36 @@ textarea {
 .deleteComment {
     margin-left: auto;
 }
+
+.profilePicContainer {
+    background-color: yellow;
+    border-radius: 50%;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.profileCardHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profileStatsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.profileStat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profileStat p, .profileStat h3 {
+    display: flex;
+    justify-content: center;
+}
